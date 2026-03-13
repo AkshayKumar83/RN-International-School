@@ -13,37 +13,52 @@ function Footer() {
 
           {/* School Info */}
 
-          <div>
-            <h3 className="text-xl font-bold mb-4 text-yellow-400">
-              RN International School
-            </h3>
+        <div>
+  {/* Logo + School Name */}
+  <div className="flex items-center gap-3 mb-4">
+    
+    <img
+      src="/images/logo.png"
+      alt="RN International School"
+      className="w-14 h-14 object-contain"
+    />
 
-            <p className="text-gray-300 text-sm mb-4">
-              Providing quality education with a focus on holistic development,
-              modern teaching methods, and a safe learning environment.
-            </p>
+    <div>
+      <h3 className="text-2xl font-bold leading-tight">
+        RN
+      </h3>
+      <h3 className="text-2xl font-bold leading-tight">
+        INTERNATIONAL SCHOOL
+      </h3>
+    </div>
 
-            <div className="flex space-x-4">
+  </div>
 
-              <a href="#" className="hover:text-yellow-400 transition">
-                <Facebook size={20} />
-              </a>
+  <p className="text-gray-300 text-sm mb-4">
+    Providing quality education with a focus on holistic development,
+    modern teaching methods, and a safe learning environment.
+  </p>
 
-              <a href="#" className="hover:text-yellow-400 transition">
-                <Twitter size={20} />
-              </a>
+  <div className="flex space-x-4 mt-4">
 
-              <a href="#" className="hover:text-yellow-400 transition">
-                <Instagram size={20} />
-              </a>
+    <a href="#" className="bg-white text-blue-900 p-2 rounded-full hover:bg-yellow-400 transition">
+      <Facebook size={18} />
+    </a>
 
-              <a href="#" className="hover:text-yellow-400 transition">
-                <Youtube size={20} />
-              </a>
+    <a href="#" className="bg-white text-blue-900 p-2 rounded-full hover:bg-yellow-400 transition">
+      <Twitter size={18} />
+    </a>
 
-            </div>
-          </div>
+    <a href="#" className="bg-white text-blue-900 p-2 rounded-full hover:bg-yellow-400 transition">
+      <Instagram size={18} />
+    </a>
 
+    <a href="#" className="bg-white text-blue-900 p-2 rounded-full hover:bg-yellow-400 transition">
+      <Youtube size={18} />
+    </a>
+
+  </div>
+</div>
 
           {/* Quick Links */}
 
@@ -109,13 +124,21 @@ function Footer() {
                 <Phone className="w-5 h-5 mr-2 mt-0.5" />
 
                 <div>
-                  <a href="tel:+919870989575" className="hover:text-yellow-400 block">
+                  {/* <a href="tel:+919870989575" className="hover:text-yellow-400 block">
+                    +91 98709 89575
+                  </a> */}
+                 
+                  {/* <a href="tel:+916398383992" className="hover:text-yellow-400 block">
+                    +91 63983 83992
+                  </a> */}
+                   <a href className="hover:text-yellow-400 block">
                     +91 98709 89575
                   </a>
 
-                  <a href="tel:+916398383992" className="hover:text-yellow-400 block">
+                  <a href className="hover:text-yellow-400 block">
                     +91 63983 83992
                   </a>
+                  
                 </div>
 
               </li>

@@ -1,4 +1,4 @@
-import banner from "../assets/admission-banner.png";
+
 
 function Admission() {
 
@@ -14,11 +14,11 @@ function Admission() {
 
         <div className="flex justify-center">
 
-          <img
-            src={banner}
-            alt="Admission Banner"
-            className="rounded-xl shadow-lg"
-          />
+         <img
+          src="/images/admission-banner.png"
+          alt="Admission Banner"
+          className="rounded-xl shadow-lg"
+        />
 
         </div>
 

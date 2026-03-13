@@ -4,7 +4,6 @@
 
 import { useState } from "react";
 import { MapPin, Menu, Phone, X ,Mail} from "lucide-react";
-import logo from "../assets/logo.png";
 import { NavLink } from "react-router-dom";
 
 function Navbar() {
@@ -45,11 +44,15 @@ const [open, setOpen] = useState(false);
 
     <div className="flex items-center space-x-6">
 
-      <span className="flex items-center gap-2 hover:text-yellow-400 transition cursor-default">
-        <MapPin size={16} />
-        Barkatpur, Bijnor
-      </span>
-
+    <a
+  href="https://www.google.com/maps/search/Barkatpur+Bijnor"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="flex items-center gap-2 hover:text-yellow-400 transition"
+>
+  <MapPin size={16} />
+  Barkatpur, Bijnor
+</a>
       <span className="flex items-center gap-2 hover:text-yellow-400 transition cursor-default">
         <Phone size={16} />
         +91 98709 89575
@@ -89,7 +92,7 @@ const [open, setOpen] = useState(false);
             <a className="flex items-center space-x-3" href="/">
               
               <img
-                src={logo}
+                src="/images/logo.png"
                 alt="RN International School"
                 className="w-12 h-12 object-contain"
               />
