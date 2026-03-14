@@ -1,6 +1,74 @@
 import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 function Contact() {
+
+
+    const [formData, setFormData] = useState({
+            name: "",
+            email: "",
+            phone: "",
+            message: ""
+            });
+
+const [loading, setLoading] = useState(false);
+const [successMsg, setSuccessMsg] = useState("");
+const [errorMsg, setErrorMsg] = useState("");
+
+
+
+const handleChange = (e) => {
+  const { name, value } = e.target;
+
+  setFormData({
+    ...formData,
+    [name]: value
+  });
+};
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    setLoading(true);
+
+    const response = await fetch("http://localhost:5001/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      toast.success("Message sent successfully!");
+
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        message: ""
+      });
+
+    } else {
+      toast.error("Something went wrong");
+    }
+
+  } catch (error) {
+    toast.error("Server error");
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+
+
+
+
     return (
         <>
             {/* Blue Banner */}
@@ -13,7 +81,7 @@ function Contact() {
       </section> */}
 
             <section
-                className="relative h-[520px] bg-cover bg-center flex items-center justify-center"
+                className="relative h-[690px] bg-cover bg-center flex items-center justify-center"
                 style={{ backgroundImage: "url('/images/contact-banner.jpg')" }}
             >
                 {/* Overlay */}
@@ -21,7 +89,7 @@ function Contact() {
 
                 {/* Content */}
                 <div className="relative text-center max-w-4xl px-6 text-white">
-                    <h1 className="text-5xl md:text-5xl font-medium mb-6 leading-tight">
+                    <h1 className="text-5xl md:text-6xl font-bold  mb-6 leading-tight">
                         Get In Touch – We’re Here To Help
                     </h1>
 
@@ -29,6 +97,7 @@ function Contact() {
                         If you have any questions or require help with anything,
                         you are welcome to get in touch with us.
                     </h2>
+                    
                 </div>
             </section>
 
@@ -134,7 +203,20 @@ function Contact() {
                                 Send Us a Message
                             </h2>
 
-                            <form className="bg-white p-8 rounded-lg shadow-md">
+                            {successMsg && (
+                            <div className="bg-green-100 text-green-700 p-3 rounded mb-4">
+                                {successMsg}
+                            </div>
+                            )}
+
+                            {errorMsg && (
+                            <div className="bg-red-100 text-red-700 p-3 rounded mb-4">
+                                {errorMsg}
+                            </div>
+                            )}
+
+                            <form onSubmit={handleSubmit}
+                            className="bg-white p-8 rounded-lg shadow-md">
                                 {/* Name */}
 
                                 <div className="mb-4">
@@ -143,10 +225,14 @@ function Contact() {
                                     </label>
 
                                     <input
+                                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                       placeholder="Enter your name"
                                         type="text"
+                                        name='name'
                                         required
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        placeholder="Enter your name"
+                                        value={formData?.name}
+                                        onChange={handleChange}
+                                      
                                     />
                                 </div>
 
@@ -162,6 +248,9 @@ function Contact() {
                                         required
                                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         placeholder="Enter your email"
+                                        name='email'
+                                        value={formData?.email}
+                                        onChange={handleChange}
                                     />
                                 </div>
 
@@ -173,12 +262,17 @@ function Contact() {
                                     </label>
 
                                     <input
-                                        type="tel"
-                                        required
                                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         placeholder="Enter phone number"
+                                        type="tel"
+                                        required
+                                        name='phone'
+                                        value={formData?.phone}
+                                        onChange={handleChange}
                                     />
                                 </div>
+
+                               
 
                                 {/* Subject */}
                                 {/* 
@@ -207,18 +301,57 @@ function Contact() {
                                         required
                                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         placeholder="Write your message"
+                                        name='message'
+                                        value={formData?.message}
+                                     onChange={handleChange}
                                     ></textarea>
                                 </div>
 
                                 {/* Submit Button */}
 
-                                <button
+                                {/* <button
                                     type="submit"
                                     className="w-full bg-blue-700 text-white px-6 py-4 rounded-lg font-bold text-lg hover:bg-blue-800 transition flex items-center justify-center"
                                 >
                                     <Send className="w-5 h-5 mr-2" />
                                     Send Message
-                                </button>
+                                </button> */}
+ <button
+  type="submit"
+  disabled={loading}
+  className="w-full bg-blue-700 text-white px-6 py-4 rounded-lg font-bold text-lg hover:bg-blue-800 transition flex items-center justify-center"
+>
+  {loading ? (
+    <span className="flex items-center">
+      <svg
+        className="animate-spin h-5 w-5 mr-2 text-white"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <circle
+          className="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          strokeWidth="4"
+        />
+        <path
+          className="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8v8H4z"
+        />
+      </svg>
+      Sending...
+    </span>
+  ) : (
+    <>
+      <Send className="w-5 h-5 mr-2" />
+      Send Message
+    </>
+  )}
+</button>
                             </form>
                         </div>
 

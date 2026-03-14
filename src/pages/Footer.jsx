@@ -20,10 +20,10 @@ function Footer() {
     <img
       src="/images/logo.png"
       alt="RN International School"
-      className="w-14 h-14 object-contain"
+      className="w-16 h-16 object-contain"
     />
 
-    <div>
+    <div className="text-yellow-400">
       <h3 className="text-2xl font-bold leading-tight">
         RN
       </h3>
@@ -39,25 +39,42 @@ function Footer() {
     modern teaching methods, and a safe learning environment.
   </p>
 
-  <div className="flex space-x-4 mt-4">
+<div className="flex gap-4 mt-6">
 
-    <a href="#" className="bg-white text-blue-900 p-2 rounded-full hover:bg-yellow-400 transition">
-      <Facebook size={18} />
-    </a>
+  {/* Facebook */}
+  <a
+    href="#"
+    className="bg-white text-blue-900 p-3 rounded-full transform transition duration-300 hover:scale-110 hover:rotate-6 hover:bg-[#1877F2] hover:text-white shadow-md"
+  >
+    <Facebook size={18} />
+  </a>
 
-    <a href="#" className="bg-white text-blue-900 p-2 rounded-full hover:bg-yellow-400 transition">
-      <Twitter size={18} />
-    </a>
+  {/* Instagram */}
+  <a
+    href="#"
+    className="bg-white text-blue-900 p-3 rounded-full transform transition duration-300 hover:scale-110 hover:rotate-6 hover:bg-gradient-to-r hover:from-pink-500 hover:to-yellow-500 hover:text-white shadow-md"
+  >
+    <Instagram size={18} />
+  </a>
 
-    <a href="#" className="bg-white text-blue-900 p-2 rounded-full hover:bg-yellow-400 transition">
-      <Instagram size={18} />
-    </a>
+  {/* Twitter */}
+  <a
+    href="#"
+    className="bg-white text-blue-900 p-3 rounded-full transform transition duration-300 hover:scale-110 hover:rotate-6 hover:bg-black hover:text-white shadow-md"
+  >
+    <Twitter size={18} />
+  </a>
 
-    <a href="#" className="bg-white text-blue-900 p-2 rounded-full hover:bg-yellow-400 transition">
-      <Youtube size={18} />
-    </a>
+  {/* YouTube */}
+  <a
+    href="#"
+    className="bg-white text-blue-900 p-3 rounded-full transform transition duration-300 hover:scale-110 hover:rotate-6 hover:bg-red-600 hover:text-white shadow-md"
+  >
+    <Youtube size={18} />
+  </a>
 
-  </div>
+</div>
+
 </div>
 
           {/* Quick Links */}

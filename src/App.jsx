@@ -9,11 +9,15 @@ import Events from "./pages/Events";
 import Contact from "./pages/Contact";
 import Footer from "./pages/Footer";
 import Navbar from "./components/Navbar";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 function App() {
   return (
     <BrowserRouter>
+     <ToastContainer position="top-right" autoClose={3000} />
+
 
       <Navbar />
 
