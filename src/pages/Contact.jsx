@@ -1,6 +1,7 @@
 import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import emailjs from "@emailjs/browser";
 
 function Contact() {
 
@@ -15,6 +16,7 @@ function Contact() {
 const [loading, setLoading] = useState(false);
 const [successMsg, setSuccessMsg] = useState("");
 const [errorMsg, setErrorMsg] = useState("");
+const [submitted, setSubmitted] = useState(false);
 
 
 
@@ -27,24 +29,33 @@ const handleChange = (e) => {
   });
 };
 
+// template_kackeng  template id
+
 const handleSubmit = async (e) => {
   e.preventDefault();
 
   try {
     setLoading(true);
 
-    const response = await fetch("http://localhost:5001/api/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
+    const result = await emailjs.send(
+      "service_pcjveul",
+      "template_kackeng",
+      {
+        form_type: "Contact Form Inquiry",
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message
       },
-      body: JSON.stringify(formData)
-    });
+      "0jB7h_xsOMEqFZtlu"
+    );
 
-    const data = await response.json();
+    if (result.text === "OK") {
+      toast.success(
+        "Thank you for contacting RN International School. We will contact you soon."
+      );
 
-    if (data.success) {
-      toast.success("Message sent successfully!");
+      setSubmitted(true);
 
       setFormData({
         name: "",
@@ -52,19 +63,14 @@ const handleSubmit = async (e) => {
         phone: "",
         message: ""
       });
-
-    } else {
-      toast.error("Something went wrong");
     }
 
   } catch (error) {
-    toast.error("Server error");
+    toast.error("Failed to send message");
   } finally {
     setLoading(false);
   }
 };
-
-
 
 
 
@@ -307,6 +313,12 @@ const handleSubmit = async (e) => {
                                     ></textarea>
                                 </div>
 
+{submitted && (
+  <div className="mt-4 mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+    Thank you for contacting RN International School. Our team will get back to you soon.
+  </div>
+)}
+
                                 {/* Submit Button */}
 
                                 {/* <button
@@ -318,7 +330,7 @@ const handleSubmit = async (e) => {
                                 </button> */}
  <button
   type="submit"
-  disabled={loading}
+   disabled={loading || submitted}
   className="w-full bg-blue-700 text-white px-6 py-4 rounded-lg font-bold text-lg hover:bg-blue-800 transition flex items-center justify-center"
 >
   {loading ? (
@@ -352,8 +364,9 @@ const handleSubmit = async (e) => {
     </>
   )}
 </button>
-                            </form>
-                        </div>
+
+     </form>
+    </div>
 
                         {/* Right Side */}
 
@@ -391,6 +404,7 @@ const handleSubmit = async (e) => {
                                 </a>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </section>

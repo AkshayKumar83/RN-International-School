@@ -33,9 +33,14 @@
 // export default Admission;
 
 import React, { useState } from "react";
-import { CircleHelp } from "lucide-react";
+import { CircleHelp, Send } from "lucide-react";
+import emailjs from "@emailjs/browser";
+import { toast } from "react-toastify";
 
 const Admissions = () => {
+
+   const [loading, setLoading] = useState(false);
+   const [submitted, setSubmitted] = useState(false);
 
   const [formData, setFormData] = useState({
     student_name: "",
@@ -54,11 +59,55 @@ const Admissions = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-    alert("Inquiry Submitted Successfully!");
-  };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    setLoading(true);
+
+    const result = await emailjs.send(
+      "service_pcjveul",
+      "template_kackeng",
+      {
+        form_type: "Admission Inquiry",
+        name: formData.student_name,
+        email: formData.email,
+        phone: formData.phone,
+        message: `
+Student Name: ${formData.student_name}
+Parent Name: ${formData.parent_name}
+Grade: ${formData.grade}
+Previous School: ${formData.previous_school}
+
+Additional Message:
+${formData.message}
+`
+      },
+      "0jB7h_xsOMEqFZtlu"
+    );
+
+    if (result.text === "OK") {
+      toast.success("Admission inquiry submitted successfully!");
+
+      setSubmitted(true);
+
+      setFormData({
+        student_name: "",
+        parent_name: "",
+        email: "",
+        phone: "",
+        grade: "",
+        previous_school: "",
+        message: ""
+      });
+    }
+
+  } catch (error) {
+    toast.error("Failed to send inquiry");
+  } finally {
+    setLoading(false);
+  }
+};
 
   const faqs = [
     {
@@ -334,6 +383,7 @@ const Admissions = () => {
             <input
               type="text"
               name="student_name"
+              value={formData?.student_name}
               required
               onChange={handleChange}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -351,6 +401,7 @@ const Admissions = () => {
             <input
               type="text"
               name="parent_name"
+              value={formData?.parent_name}
               required
               onChange={handleChange}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -368,6 +419,7 @@ const Admissions = () => {
             <input
               type="email"
               name="email"
+              value={formData?.email}
               required
               onChange={handleChange}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -385,6 +437,7 @@ const Admissions = () => {
             <input
               type="tel"
               name="phone"
+              value={formData?.phone}
               required
               onChange={handleChange}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -401,6 +454,7 @@ const Admissions = () => {
 
             <select
               name="grade"
+              value={formData?.grade}
               required
               onChange={handleChange}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -437,6 +491,7 @@ const Admissions = () => {
             <input
               type="text"
               name="previous_school"
+              value={formData?.previous_school}
               onChange={handleChange}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -456,6 +511,7 @@ const Admissions = () => {
           <textarea
             name="message"
             rows="4"
+            value={formData?.message}
             onChange={handleChange}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
@@ -467,12 +523,48 @@ const Admissions = () => {
 
         <div className="mt-6">
 
-          <button
+          {/* <button
             type="submit"
             className="w-full bg-blue-700 text-white px-6 py-4 rounded-lg font-bold text-lg hover:bg-blue-800 transition"
           >
             Submit Inquiry
-          </button>
+          </button> */}
+           <button
+  type="submit"
+   disabled={loading || submitted}
+  className="w-full bg-blue-700 text-white px-6 py-4 rounded-lg font-bold text-lg hover:bg-blue-800 transition flex items-center justify-center"
+>
+  {loading ? (
+    <span className="flex items-center">
+      <svg
+        className="animate-spin h-5 w-5 mr-2 text-white"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <circle
+          className="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          strokeWidth="4"
+        />
+        <path
+          className="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8v8H4z"
+        />
+      </svg>
+      Sending...
+    </span>
+  ) : (
+    <>
+      <Send className="w-5 h-5 mr-2" />
+     Submit Inquiry
+    </>
+  )}
+</button>
 
         </div>
 

@@ -217,7 +217,7 @@ isActive
 Contact
 </NavLink>
 
-</div>
+    </div>
 
 
             {/* Mobile Button */}
@@ -240,10 +240,11 @@ Contact
 
      {open && (
 
-<div className="hidden lg:flex space-x-1">
+<div className="lg:hidden bg-white border-t shadow-md flex flex-col px-4 py-4 space-y-2">
 
 <NavLink
 to="/"
+onClick={() => setOpen(false)}
 className={({isActive}) =>
 `px-4 py-2 rounded-md font-medium transition ${
 isActive
@@ -257,6 +258,7 @@ Home
 
 <NavLink
 to="/about"
+onClick={() => setOpen(false)}
 className={({isActive}) =>
 `px-4 py-2 rounded-md font-medium transition ${
 isActive
@@ -270,6 +272,7 @@ About
 
 <NavLink
 to="/academics"
+onClick={() => setOpen(false)}
 className={({isActive}) =>
 `px-4 py-2 rounded-md font-medium transition ${
 isActive
@@ -283,6 +286,7 @@ Academics
 
 <NavLink
 to="/admissions"
+onClick={() => setOpen(false)}
 className={({isActive}) =>
 `px-4 py-2 rounded-md font-medium transition ${
 isActive
@@ -296,6 +300,7 @@ Admissions
 
 <NavLink
 to="/faculty"
+onClick={() => setOpen(false)}
 className={({isActive}) =>
 `px-4 py-2 rounded-md font-medium transition ${
 isActive
@@ -309,6 +314,7 @@ Faculty
 
 <NavLink
 to="/gallery"
+onClick={() => setOpen(false)}
 className={({isActive}) =>
 `px-4 py-2 rounded-md font-medium transition ${
 isActive
@@ -322,6 +328,7 @@ Gallery
 
 <NavLink
 to="/events"
+onClick={() => setOpen(false)}
 className={({isActive}) =>
 `px-4 py-2 rounded-md font-medium transition ${
 isActive
@@ -335,6 +342,7 @@ Events
 
 <NavLink
 to="/contact"
+onClick={() => setOpen(false)}
 className={({isActive}) =>
 `px-4 py-2 rounded-md font-medium transition ${
 isActive
