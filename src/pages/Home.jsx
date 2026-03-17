@@ -45,6 +45,7 @@ import {
   Calendar,
   CircleCheck
 } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Home = () => {
   return (
@@ -99,6 +100,89 @@ const Home = () => {
         </div>
 
       </section>
+
+     {/* ANIMATION SECTION */}
+
+      {/* <section
+  className="relative bg-gradient-to-r from-blue-900 to-blue-700 text-white py-20 md:py-32 overflow-hidden"
+  style={{
+    backgroundImage:
+      "linear-gradient(rgba(30,64,175,0.9), rgba(30,64,175,0.9)), url(https://images.pexels.com/photos/5212687/pexels-photo-5212687.jpeg)",
+    backgroundSize: "cover",
+    backgroundPosition: "center"
+  }}
+>
+  <div className="container mx-auto px-4">
+    <div className="max-w-3xl">
+
+      
+      <motion.h1
+        className="text-4xl md:text-6xl font-bold mb-6 leading-tight"
+        initial={{ opacity: 0, x: -80 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        RN International School
+      </motion.h1>
+
+  
+      <motion.p
+        className="text-xl md:text-2xl mb-8 text-gray-100"
+        initial={{ opacity: 0, x: -80 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.3 }}
+      >
+        Empowering Young Minds for a Brighter Future 🚀
+      </motion.p>
+
+      
+      <motion.div
+        className="bg-yellow-400 text-blue-900 inline-block px-6 py-3 rounded-lg mb-8 font-bold text-lg"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.6 }}
+      >
+        🎓 Admissions Open | Limited Seats!
+      </motion.div>
+
+  
+      <motion.div
+        className="flex flex-wrap gap-4"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.9 }}
+      >
+        <Link to="/admissions">
+          <button className="bg-yellow-400 text-blue-900 px-8 py-4 rounded-lg font-bold text-lg hover:bg-yellow-300 transition flex items-center">
+            Enroll Now <ArrowRight className="ml-2" />
+          </button>
+        </Link>
+
+        <Link to="/about">
+          <button className="bg-white text-blue-900 px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition">
+            Learn More
+          </button>
+        </Link>
+      </motion.div>
+
+    </div>
+  </div>
+
+
+ <motion.img
+  src="https://png.pngtree.com/png-clipart/20240713/original/pngtree-yellow-school-bus-with-red-stop-sign-isolated-on-white-png-image_15547582.png"
+  alt="bus"
+  className="absolute bottom-5 left-0 w-28 md:w-36"
+  initial={{ x: "-100%" }}
+  animate={{ x: "100vw" }}
+  transition={{
+    duration: 8,
+    repeat: Infinity,
+    ease: "linear"
+  }}
+/>
+
+</section> */}
 
       {/* FEATURES */}
 

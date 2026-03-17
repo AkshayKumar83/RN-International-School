@@ -26,7 +26,7 @@ function App() {
 
 
       <Navbar />
-        <PageLoader />
+        {/* <PageLoader /> */}
         <ScrollToTop />
 
       <Routes>
