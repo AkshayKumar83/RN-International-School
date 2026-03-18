@@ -387,18 +387,18 @@ const handleSubmit = async (e) => {
                             {/* Buttons */}
 
                             <div className="flex gap-4 mt-16 justify-center">
-                                <a
+                                {/* <a
                                     href="https://wa.me/919870989575"
                                     target="_blank"
                                     className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
                                 >
                                     WhatsApp
-                                </a>
+                                </a> */}
 
                                 <a
                                     href="https://www.google.com/maps?q=Barkatpur+Bijnor"
                                     target="_blank"
-                                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                                    className="bg-blue-600 text-white px-14 py-2 rounded hover:bg-blue-700"
                                 >
                                     Get Directions
                                 </a>

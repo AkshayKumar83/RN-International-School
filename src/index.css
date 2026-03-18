@@ -17,6 +17,14 @@ input[type="number"]::-webkit-inner-spin-button {
   margin: 0;
 }
 
+.label {
+  @apply text-sm font-medium mb-1 block;
+}
+
+.input {
+  @apply border p-2 rounded-lg w-full focus:ring-2 focus:ring-blue-500 outline-none;
+}
+
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
