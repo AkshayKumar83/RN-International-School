@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Users, IndianRupee, AlertCircle, LogOut } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -12,8 +13,10 @@ function Dashboard() {
   return (
     <div className="flex min-h-screen bg-gray-100">
 
+      
+
       {/* Sidebar */}
-      <div className="w-64 bg-blue-900 text-white p-5">
+      {/* <div className="w-64 bg-blue-900 text-white p-5">
         <h2 className="text-xl font-bold mb-6">Admin Panel</h2>
 
         <ul className="space-y-4">
@@ -31,11 +34,76 @@ function Dashboard() {
         >
           Logout
         </button>
-      </div>
+      </div> */}
+
+      <div className="w-64 bg-blue-900 text-white p-5 flex flex-col justify-between">
+
+  <div>
+    <h2 className="text-xl font-bold mb-6">Admin Panel</h2>
+
+    <ul className="space-y-2">
+      <li>
+        <NavLink
+          to="/admin/dashboard"
+          className={({ isActive }) =>
+            `block px-3 py-2 rounded transition ${
+              isActive
+                ? "bg-yellow-400 text-black"
+                : "hover:bg-yellow-400 hover:text-black"
+            }`
+          }
+        >
+          Dashboard
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink
+          to="/admin/fees"
+          className={({ isActive }) =>
+            `block px-3 py-2 rounded transition ${
+              isActive
+                ? "bg-yellow-400 text-black"
+                : "hover:bg-yellow-400 hover:text-black"
+            }`
+          }
+        >
+          Fees
+        </NavLink>
+      </li>
+    </ul>
+  </div>
+
+  <button
+    onClick={logout}
+    className="bg-red-500 px-4 py-2 rounded w-full"
+  >
+    Logout
+  </button>
+
+     </div>
 
       {/* Main Content */}
-      <div className="flex-1 p-6">
+      <div className="flex-1">    {/* Header */}
+      <div className="w-full bg-white  shadow-md px-8 py-4 mb-6 flex justify-between items-center">
 
+   <div className="flex items-center gap-4">
+    <img
+      src="/images/logo.png"
+      alt="logo"
+      className="w-12 h-12 object-contain"
+    />
+    <div>
+      <h2 className="font-bold text-xl text-blue-900">
+        RN International School
+      </h2>
+      {/* <p className="text-sm text-gray-500">Fee Management System</p> */}
+    </div>
+  </div>
+
+
+</div>
+       <div className="p-6">
         <h1 className="text-2xl font-bold mb-6">Dashboard</h1>
 
         {/* Cards */}
@@ -89,6 +157,7 @@ function Dashboard() {
         </div>
 
       </div>
+    </div>
     </div>
   );
 }

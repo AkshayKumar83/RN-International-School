@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { IndianRupee, User, Calendar } from "lucide-react";
 import StudentSearch from "./StudentSearch";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Fees() {
 
@@ -31,15 +32,37 @@ function Fees() {
 
     <h2 className="text-2xl font-bold mb-8">Admin Panel</h2>
 
-    <ul className="space-y-4 text-sm">
-      <li className="hover:bg-white/10 p-2 rounded cursor-pointer transition">
-        Dashboard
-      </li>
+<ul className="space-y-2">
+  <li>
+    <NavLink
+      to="/admin/dashboard"
+      className={({ isActive }) =>
+        `block px-3 py-2 rounded transition ${
+          isActive
+            ? "bg-yellow-400 text-black"
+            : "hover:bg-yellow-400 hover:text-black"
+        }`
+      }
+    >
+      Dashboard
+    </NavLink>
+  </li>
 
-      <li className="bg-white/20 p-2 rounded font-semibold text-yellow-300">
-        Fees
-      </li>
-    </ul>
+  <li>
+    <NavLink
+      to="/admin/fees"
+      className={({ isActive }) =>
+        `block px-3 py-2 rounded transition ${
+          isActive
+            ? "bg-yellow-400 text-black"
+            : "hover:bg-yellow-400 hover:text-black"
+        }`
+      }
+    >
+      Fees
+    </NavLink>
+  </li>
+</ul>
 
   </div>
 
