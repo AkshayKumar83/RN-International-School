@@ -68,7 +68,7 @@ export default function AdmissionForm() {
 
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-2xl shadow space-y-8"
+        className="bg-white p-3 rounded-2xl shadow space-y-8"
       >
         {/* STUDENT DETAILS */}
         <div>

@@ -1,6 +1,8 @@
 import AdminSidebar from "./AdminSidebar";
 
 function AdminLayout({ children, rightContent, logout }) {
+
+  
   return (
    <div className="bg-gray-100 min-h-screen">
 

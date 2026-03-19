@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-.input{
-@apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500;
+.input {
+  @apply border px-2 py-1 rounded-md w-full text-sm focus:ring-2 focus:ring-blue-500 outline-none;
 }
 
 .mobile-link{
@@ -18,7 +18,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .label {
-  @apply text-sm font-medium mb-1 block;
+  @apply text-sm font-medium mb-1 block text-gray-900;
 }
 
 .input {
