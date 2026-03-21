@@ -246,6 +246,8 @@ import { toast } from "react-toastify";
 export default function AdmissionForm() {
   const navigate = useNavigate();
 
+  const API = import.meta.env.VITE_API_URL;
+
   const initialState = {
     admissionDate: new Date().toISOString().split("T")[0],
     name: "",
@@ -284,7 +286,8 @@ export default function AdmissionForm() {
   //  SEARCH API
 useEffect(() => {
   if (debouncedSearch.length > 1) {
-    fetch(`http://localhost:5001/api/students/search?q=${debouncedSearch}`)
+    // fetch(`http://localhost:5001/api/students/search?q=${debouncedSearch}`)
+     fetch(`${API}/api/students/search?q=${debouncedSearch}`)
       .then(res => res.json())
       .then(data => setStudents(data));
   } else {
@@ -321,9 +324,13 @@ useEffect(() => {
 
 
 
+    // const url = selectedStudent
+    //   ? `http://localhost:5001/api/students/${selectedStudent._id}`
+    //   : "http://localhost:5001/api/students/add";
+
     const url = selectedStudent
-      ? `http://localhost:5001/api/students/${selectedStudent._id}`
-      : "http://localhost:5001/api/students/add";
+  ? `${API}/api/students/${selectedStudent._id}`
+  : `${API}/api/students/add`;
 
     const method = selectedStudent ? "PUT" : "POST";
 
