@@ -253,6 +253,7 @@ export default function AdmissionForm() {
     name: "",
     fatherName: "",
     motherName: "",
+    aadharNumber: "",
     class: "",
     dob: "",
     gender: "",
@@ -273,6 +274,7 @@ export default function AdmissionForm() {
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [loading, setLoading] = useState(false);
 
 
   useEffect(() => {
@@ -318,58 +320,145 @@ useEffect(() => {
 
 
   //  SUBMIT (ADD + UPDATE)
-  const handleSubmit = async (e) => {
-      if (!e.target.checkValidity()) return;
-    e.preventDefault();
+//   const handleSubmit = async (e) => {
+//       if (!e.target.checkValidity()) return;
+//     e.preventDefault();
 
 
 
-    // const url = selectedStudent
-    //   ? `http://localhost:5001/api/students/${selectedStudent._id}`
-    //   : "http://localhost:5001/api/students/add";
+//     // const url = selectedStudent
+//     //   ? `http://localhost:5001/api/students/${selectedStudent._id}`
+//     //   : "http://localhost:5001/api/students/add";
 
-    const url = selectedStudent
-  ? `${API}/api/students/${selectedStudent._id}`
-  : `${API}/api/students/add`;
+//     const url = selectedStudent
+//   ? `${API}/api/students/${selectedStudent._id}`
+//   : `${API}/api/students/add`;
 
-    const method = selectedStudent ? "PUT" : "POST";
+//     const method = selectedStudent ? "PUT" : "POST";
 
-    const finalData = {
-  ...form,
-  admissionFeeAmount:
-    form.paymentStatus === "paid" ? form.fee : "",
-  paymentMode:
-    form.paymentStatus === "paid" ? form.paymentMode : "",
+//     const finalData = {
+//   ...form,
+//   admissionFeeAmount:
+//     form.paymentStatus === "paid" ? form.fee : "",
+//   paymentMode:
+//     form.paymentStatus === "paid" ? form.paymentMode : "",
 
-  documents: {
-    photo: form.photo,
-    birthCert: form.birthCert,
-    aadhar: form.aadhar,
-    tc: form.tc,
-  },
-};
+//   documents: {
+//     photo: form.photo,
+//     birthCert: form.birthCert,
+//     aadhar: form.aadhar,
+//     tc: form.tc,
+//   },
+// };
 
-    try {
-      const res = await fetch(url, {
-        method,
+//     try {
+//       const res = await fetch(url, {
+//         method,
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify(finalData),
+//       });
+
+//       const data = await res.json();
+
+//       if (res.ok) {
+//         toast.success(selectedStudent ? "Updated ✅" : "Saved ✅");
+//         setForm(initialState);
+//         setSelectedStudent(null);
+//         setSearch("");
+//       } else {
+//         toast.error(data.error || "Something went wrong");
+//       }
+//     } catch (error) {
+//       toast.error("Server Error");
+//     }
+//   };
+
+
+const handleSubmit = async (e) => {
+  if (!e.target.checkValidity()) return;
+  e.preventDefault();
+
+  setLoading(true);
+
+  const url = selectedStudent
+    ? `${API}/api/students/${selectedStudent._id}`
+    : `${API}/api/students/add`;
+
+  const method = selectedStudent ? "PUT" : "POST";
+
+  const finalData = {
+    ...form,
+    admissionFeeAmount:
+      form.paymentStatus === "paid" ? form.fee : "",
+    paymentMode:
+      form.paymentStatus === "paid" ? form.paymentMode : "",
+
+    documents: {
+      photo: form.photo,
+      birthCert: form.birthCert,
+      aadhar: form.aadhar,
+      tc: form.tc,
+    },
+  };
+
+  try {
+    const res = await fetch(url, {
+      method,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(finalData),
+    });
+
+    const data = await res.json();
+
+    // ❌ Aadhaar duplicate (BLOCK)
+    if (res.status === 400) {
+      toast.error(data.error || "Duplicate Aadhaar Number Found ❌");
+      setLoading(false);
+      return;
+    }
+
+    //  Warning duplicate (no Aadhaar case)
+    if (data.warning) {
+      const confirmSave = window.confirm(
+        "⚠️ Similar student already exists. Continue?"
+      );
+
+      if (!confirmSave) {
+        setLoading(false);
+        return;
+      }
+
+      //  Force save
+      await fetch(`${API}/api/students/add?force=true`, {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(finalData),
       });
 
-      const data = await res.json();
-
-      if (res.ok) {
-        toast.success(selectedStudent ? "Updated ✅" : "Saved ✅");
-        setForm(initialState);
-        setSelectedStudent(null);
-        setSearch("");
-      } else {
-        toast.error(data.error || "Something went wrong");
-      }
-    } catch (error) {
-      toast.error("Server Error");
+      toast.success("Saved with duplicate ⚠️");
+      setForm(initialState);
+      setSelectedStudent(null);
+      setSearch("");
+      setLoading(false);
+      return;
     }
-  };
+
+    //  Normal success
+    if (res.ok) {
+      toast.success(selectedStudent ? "Updated ✅" : "Saved ✅");
+      setForm(initialState);
+      setSelectedStudent(null);
+      setSearch("");
+    }
+
+  } catch (error) {
+    toast.error("Server Error");
+  } finally {
+    setLoading(false);
+  }
+};
+
+
 
   const logout = () => {
     localStorage.removeItem("admin");
@@ -388,7 +477,7 @@ useEffect(() => {
         className="input mb-2 w-full"
       />
 
-      {/* 🔽 SEARCH RESULTS */}
+      {/* SEARCH RESULTS */}
       {students.length > 0 && (
         <div className="bg-white border rounded mb-4 max-h-40 overflow-y-auto">
           {students.map((s) => (
@@ -396,20 +485,7 @@ useEffect(() => {
               key={s._id}
               className="p-2 hover:bg-gray-100 cursor-pointer"
               onClick={() => {
-//   setForm({
-//     ...s,
 
-//     dob: s.dob ? s.dob.split("T")[0] : "",
-//     admissionDate: s.admissionDate
-//       ? s.admissionDate.split("T")[0]
-//       : "",
-
-//     paymentStatus: s.admissionFeeStatus || "unpaid",
-// fee: s.admissionFeeAmount || "",
-// paymentMode: s.paymentMode || "cash",
-//     fee: s.admissionFeeAmount,
-//     ...s.documents,
-//   });
 
 setForm({
   ...s,
@@ -427,7 +503,7 @@ setForm({
   setSearch("");
 }}
             >
-              {s.admissionNumber} - {s.name} ({s.class}) - {s.mobile}
+              {s.admissionNumber} - {s.name} ({s.class}) - {s.mobile} 
             </div>
           ))}
         </div>
@@ -443,11 +519,16 @@ setForm({
             <Input label="Student Name *" name="name" value={form.name}  required onChange={handleChange} />
             <Input label="Father Name *" name="fatherName" value={form.fatherName}  required onChange={handleChange} />
             <Input label="Mother Name *" name="motherName" value={form.motherName}  required onChange={handleChange} />
+            </div>
+             <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <Input type="tel" maxLength={12}  label="Aadhar Number *" name="aadharNumber" value={form.aadharNumber}  required onChange={handleChange} />
             <Input type="date" label="Date of Birth *" name="dob" value={form.dob}  required onChange={handleChange} />
 
             <Select label="Gender *" name="gender" value={form.gender}   required onChange={handleChange} options={["Male", "Female"]} />
+           
             <Select label="Class *" name="class" value={form.class}  required  onChange={handleChange} options={["Nursery","LKG","UKG","1","2","3","4","5","6","7","8"]} />
-
+        </div>
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             <Input type="tel" maxLength={10} label="Mobile Number *" name="mobile" value={form.mobile}  required onChange={handleChange} />
             <Input type="tel" maxLength={10} label="Alternate Mobile (optional)" name="alternateMobile" value={form.alternateMobile}   onChange={handleChange} />
             <Input type="date" label="Admission Date *" name="admissionDate" value={form.admissionDate}  required onChange={handleChange} />
@@ -502,9 +583,17 @@ setForm({
             Cancel
           </button>
 
-          <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded-xl">
+          {/* <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded-xl">
             {selectedStudent ? "Update Admission" : "Save Admission"}
-          </button>
+          </button> */}
+          <button type="submit"  className="bg-blue-600 text-white px-6 py-2 rounded-xl"
+          disabled={loading}>
+          {loading
+            ? "Saving..."
+            : selectedStudent
+            ? "Update Admission"
+            : "Save Admission"}
+        </button>
         </div>
 
       </form>
