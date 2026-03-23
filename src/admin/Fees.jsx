@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { IndianRupee, User, Calendar } from "lucide-react";
-import StudentSearch from "./StudentSearch";
-import { NavLink, useNavigate } from "react-router-dom";
+
 import AdminLayout from "../components/AdminLayout";
 
 function Fees() {

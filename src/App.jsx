@@ -25,6 +25,7 @@ import ProtectedRoute from "./admin/ProtectedRoute";
 import Dashboard from "./admin/Dashboard";
 import AdmissionForm from "./admin/AdmissionForm";
 
+
 function Layout() {
   const location = useLocation();
 

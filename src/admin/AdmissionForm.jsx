@@ -1,247 +1,10 @@
 
 
-// import { useState } from "react";
-// import AdminLayout from "../components/AdminLayout";
-// import { useNavigate } from "react-router-dom";
-// import { toast } from "react-toastify";
-
-// export default function AdmissionForm() {
-//   const navigate = useNavigate();
-
-//   const initialState = {
-//   admissionDate: new Date().toISOString().split("T")[0],
-//   name: "",
-//   fatherName: "",
-//   motherName: "",
-//   class: "",
-//   dob: "",
-//   gender: "",
-//   mobile: "",
-//   alternateMobile: "",
-//   address: "",
-//   fee: "",
-//   paymentStatus: "paid",
-//   paymentMode: "cash",
-//    photo: false,
-//     birthCert: false,
-//     aadhar: false,
-//     tc: false,
-// };
-
-
-// const [form, setForm] = useState(initialState);
-
-
-
-//  const handleChange = (e) => {
-//   const { name, value, type, checked } = e.target;
-
-//   setForm({
-//     ...form,
-//     [name]: type === "checkbox" ? checked : value,
-//   });
-// };
-
-// const handleSubmit = async (e) => {
-//   e.preventDefault();
-
-//   const finalData = {
-//     ...form,
-//      documents: {
-//       photo: form.photo,
-//       birthCert: form.birthCert,
-//       aadhar: form.aadhar,
-//       tc: form.tc,
-//     },
-
-//   };
-
-//   try {
-//     const res = await fetch("http://localhost:5001/api/students/add", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(finalData),
-//     });
-
-//     const data = await res.json();
-
-//     if (res.ok) {
-//       toast.success("Admission Saved Successfully ");
-
-//       console.log("SUCCESS 👉", data);
-
-//       // 🔥 OPTIONAL: form reset
-//        setForm({...initialState});
-//     } else {
-//       toast.error(data.error || "Something went wrong ");
-//     }
-
-//   } catch (error) {
-//     console.error(error);
-//     toast.error("Server Error ");
-//   }
-// };
-
-//   const logout = () => {
-//     localStorage.removeItem("admin");
-//     navigate("/admin/login");
-//   };
-
-//   return (
-//     <AdminLayout title="Admission Form" logout={logout}>
-//       <h1 className="text-2xl font-bold mb-6">Add Admission</h1>
-
-//       <form
-//         onSubmit={handleSubmit}
-//         className="bg-white p-3 rounded-2xl shadow space-y-8"
-//       >
-
-      
-    
-
-//         {/* STUDENT DETAILS */}
-//         <div>
-//           <h2 className="text-lg font-semibold mb-4">Student Details</h2>
-
-//           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-//             <Input label="Student Name *" name="name" value={form.name} onChange={handleChange} />
-//             <Input label="Father Name *" name="fatherName" value={form.fatherName} onChange={handleChange} />
-//             <Input label="Mother Name *" name="motherName" value={form.motherName} onChange={handleChange} />
-
-//             <Input type="date" label="Date of Birth *" name="dob" value={form.dob} onChange={handleChange} />
-
-//             <Select
-//               label="Gender *"
-//               name="gender"
-//               value={form.gender}
-//               onChange={handleChange}
-//               options={["Male", "Female"]}
-//             />
-
-//             <Select
-//               label="Class *"
-//               name="class"
-//               value={form.class}
-//               onChange={handleChange}
-//               options={["Nursery", "LKG", "UKG", "1", "2", "3", "4", "5", "6", "7", "8"]}
-//             />
-
-//             <Input type='number' label="Mobile Number *" name="mobile" value={form.mobile} onChange={handleChange} />
-//             <Input
-//               type='number'
-//               label="Alternate Mobile Number"
-//               name="alternateMobile"
-//               value={form.alternateMobile}
-//               onChange={handleChange}
-//             />
-//             <Input
-//               type="date"
-//               label="Admission Date *"
-//               name="admissionDate"
-//               value={form.admissionDate}
-//               onChange={handleChange}
-//             />
-//           </div>
-          
-
-//           <div className="mt-4">
-//             <label className="label">Address *</label>
-//             <textarea
-//               name="address"
-//               value={form.address}
-//               onChange={handleChange}
-//               className="input w-full"
-//             />
-//           </div>
-//         </div>
-
-//         {/* DOCUMENTS */}
-//         <div>
-//           <h2 className="text-lg font-semibold mb-4">Documents</h2>
-
-//           <div className="grid md:grid-cols-2 gap-4">
-//             <Checkbox label="Student Photo" name="photo" checked={form.photo} onChange={handleChange} />
-//             <Checkbox label="Birth Certificate" name="birthCert" checked={form.birthCert} onChange={handleChange} />
-//             <Checkbox label="Aadhar Card" name="aadhar" checked={form.aadhar} onChange={handleChange} />
-//             <Checkbox label="Transfer Certificate (TC)" name="tc" checked={form.tc} onChange={handleChange} />
-//           </div>
-//         </div>
-
-//         {/* ADMISSION FEE */}
-//         <div>
-//           <h2 className="text-lg font-semibold mb-4">Admission Fee</h2>
-
-//           <div className="grid md:grid-cols-3 gap-4">
-//             {/* <Input label="Fee Amount" name="fee" onChange={handleChange} /> */}
-
-//             <Select
-//               label="Payment Status"
-//               name="paymentStatus"
-//               value={form.paymentStatus}
-//               onChange={handleChange}
-//               options={["paid", "unpaid"]}
-//             />
-
-//        {form.paymentStatus === "paid" && (
-//               // <Input type='number' label="Fee Amount" name="fee" value={form.fee} onChange={handleChange} />
-//               <Input
-//               type='number'
-//   label="Fee Amount"
-//   name="fee"
-//   value={form.fee}
-//   className="text-right"
-//   onChange={(e) => {
-//     const value = e.target.value;
-
-//     // only positive numbers allowed
-//     if (/^\d*$/.test(value)) {
-//       setForm({ ...form, fee: value });
-//     }
-//   }}
-// />
-//             )}
-
-//             {form.paymentStatus === "paid" && (
-//               <Select
-//                 label="Payment Mode"
-//                 name="paymentMode"
-//                 value={form.paymentMode}
-//                 onChange={handleChange}
-//                 options={["cash", "upi"]}
-//               />
-//             )}
-            
-//           </div>
-//         </div>
-
-//         {/* SUBMIT */}
-//         <div className="flex justify-end gap-3">
-//   <button
-//     type="button"
-//     onClick={() => setForm(initialState)}
-//     className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-xl"
-//   >
-//     Cancel
-//   </button>
-
-//   <button
-//     type="submit"
-//     className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-xl"
-//   >
-//     Save Admission
-//   </button>
-// </div>
-//       </form>
-//     </AdminLayout>
-//   );
-// }
-
 import { useState, useEffect } from "react";
 import AdminLayout from "../components/AdminLayout";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
 
 export default function AdmissionForm() {
   const navigate = useNavigate();
@@ -275,6 +38,7 @@ export default function AdmissionForm() {
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [loading, setLoading] = useState(false);
+  const [originalData, setOriginalData] = useState(null);
 
 
   useEffect(() => {
@@ -374,11 +138,96 @@ useEffect(() => {
 //   };
 
 
+// const handleSubmit = async (e) => {
+//   if (!e.target.checkValidity()) return;
+//   e.preventDefault();
+
+//   setLoading(true);
+
+//   const url = selectedStudent
+//     ? `${API}/api/students/${selectedStudent._id}`
+//     : `${API}/api/students/add`;
+
+//   const method = selectedStudent ? "PUT" : "POST";
+
+//   const finalData = {
+//     ...form,
+//     admissionFeeAmount:
+//       form.paymentStatus === "paid" ? form.fee : "",
+//     paymentMode:
+//       form.paymentStatus === "paid" ? form.paymentMode : "",
+
+//     documents: {
+//       photo: form.photo,
+//       birthCert: form.birthCert,
+//       aadhar: form.aadhar,
+//       tc: form.tc,
+//     },
+//   };
+
+//   try {
+//     const res = await fetch(url, {
+//       method,
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify(finalData),
+//     });
+
+//     const data = await res.json();
+
+//     // ❌ Aadhaar duplicate (BLOCK)
+//     if (res.status === 400) {
+//       toast.error(data.error || "Duplicate Aadhaar Number Found ❌");
+//       setLoading(false);
+//       return;
+//     }
+
+//     //  Warning duplicate (no Aadhaar case)
+//     if (data.warning) {
+//       const confirmSave = window.confirm(
+//         "⚠️ Similar student already exists. Continue?"
+//       );
+
+//       if (!confirmSave) {
+//         setLoading(false);
+//         return;
+//       }
+
+//       //  Force save
+//       await fetch(`${API}/api/students/add?force=true`, {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify(finalData),
+//       });
+
+//       toast.success("Saved with duplicate ⚠️");
+//       setForm(initialState);
+//       setSelectedStudent(null);
+//       setSearch("");
+//       setLoading(false);
+//       return;
+//     }
+
+//     //  Normal success
+//     if (res.ok) {
+//       toast.success(selectedStudent ? "Updated ✅" : "Saved ✅");
+//       setForm(initialState);
+//       setSelectedStudent(null);
+//       setSearch("");
+//     }
+
+//   } catch (error) {
+//     toast.error("Server Error");
+//   } finally {
+//     setLoading(false);
+//   }
+// };
+
 const handleSubmit = async (e) => {
   if (!e.target.checkValidity()) return;
   e.preventDefault();
 
   setLoading(true);
+  const startTime = Date.now();
 
   const url = selectedStudent
     ? `${API}/api/students/${selectedStudent._id}`
@@ -392,7 +241,6 @@ const handleSubmit = async (e) => {
       form.paymentStatus === "paid" ? form.fee : "",
     paymentMode:
       form.paymentStatus === "paid" ? form.paymentMode : "",
-
     documents: {
       photo: form.photo,
       birthCert: form.birthCert,
@@ -402,6 +250,18 @@ const handleSubmit = async (e) => {
   };
 
   try {
+    //  NO CHANGE CHECK
+if (selectedStudent && originalData) {
+  const isSame =
+    JSON.stringify(form) === JSON.stringify(originalData);
+
+  if (isSame) {
+    toast.error("Please update at least one field ❗");
+    setLoading(false);
+    return;
+  }
+}
+
     const res = await fetch(url, {
       method,
       headers: { "Content-Type": "application/json" },
@@ -410,25 +270,18 @@ const handleSubmit = async (e) => {
 
     const data = await res.json();
 
-    // ❌ Aadhaar duplicate (BLOCK)
     if (res.status === 400) {
-      toast.error(data.error || "Duplicate Aadhaar Number Found ❌");
-      setLoading(false);
+      toast.error(data.error || "Duplicate Aadhaar Number Found ");
       return;
     }
 
-    //  Warning duplicate (no Aadhaar case)
     if (data.warning) {
       const confirmSave = window.confirm(
         "⚠️ Similar student already exists. Continue?"
       );
 
-      if (!confirmSave) {
-        setLoading(false);
-        return;
-      }
+      if (!confirmSave) return;
 
-      //  Force save
       await fetch(`${API}/api/students/add?force=true`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -436,25 +289,24 @@ const handleSubmit = async (e) => {
       });
 
       toast.success("Saved with duplicate ⚠️");
-      setForm(initialState);
-      setSelectedStudent(null);
-      setSearch("");
-      setLoading(false);
-      return;
+    } else if (res.ok) {
+      toast.success(selectedStudent ? "Updated successfully" : "Saved successfully");
     }
 
-    //  Normal success
-    if (res.ok) {
-      toast.success(selectedStudent ? "Updated ✅" : "Saved ✅");
-      setForm(initialState);
-      setSelectedStudent(null);
-      setSearch("");
-    }
+    setForm(initialState);
+    setSelectedStudent(null);
+    setSearch("");
 
   } catch (error) {
     toast.error("Server Error");
   } finally {
-    setLoading(false);
+    //  minimum loader time
+    const elapsed = Date.now() - startTime;
+    const minTime = 700;
+
+    setTimeout(() => {
+      setLoading(false);
+    }, elapsed < minTime ? minTime - elapsed : 0);
   }
 };
 
@@ -467,41 +319,41 @@ const handleSubmit = async (e) => {
 
   return (
     <AdminLayout title="Admission Form" logout={logout}>
-      <h1 className="text-2xl font-bold mb-4">Add / Update Admission</h1>
+      <h1 className="text-2xl font-bold mb-4 text-end">Add / Update Admission</h1>
 
       {/* 🔍 SEARCH BOX */}
-      <input
-        placeholder="Search student by name..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="input mb-2 w-full"
-      />
+    <div className="relative">
+  <input
+    placeholder="Search student by name..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+    className="input mb-2 w-full"
+  />
 
       {/* SEARCH RESULTS */}
       {students.length > 0 && (
-        <div className="bg-white border rounded mb-4 max-h-40 overflow-y-auto">
+       <div className="absolute top-full left-0 w-full bg-white border rounded shadow-lg max-h-60 overflow-y-auto z-50">
           {students.map((s) => (
             <div
               key={s._id}
               className="p-2 hover:bg-gray-100 cursor-pointer"
-              onClick={() => {
+             onClick={() => {
+              const formattedData = {
+                ...s,
+                dob: s.dob ? s.dob.split("T")[0] : "",
+                admissionDate: s.admissionDate ? s.admissionDate.split("T")[0] : "",
+                paymentStatus: s.admissionFeeStatus || "unpaid",
+                fee: s.admissionFeeAmount || "",
+                paymentMode: s.paymentMode || "cash",
+                ...s.documents,
+              };
 
-
-setForm({
-  ...s,
-  dob: s.dob ? s.dob.split("T")[0] : "",
-  admissionDate: s.admissionDate ? s.admissionDate.split("T")[0] : "",
-
-  paymentStatus: s.admissionFeeStatus || "unpaid",
-  fee: s.admissionFeeAmount || "",
-  paymentMode: s.paymentMode || "cash",
-
-  ...s.documents,
-});
-  setSelectedStudent(s);
-  setStudents([]);
-  setSearch("");
-}}
+              setForm(formattedData);
+              setOriginalData(formattedData); 
+              setSelectedStudent(s);
+              setStudents([]);
+              setSearch("");
+            }}
             >
               {s.admissionNumber} - {s.name} ({s.class}) - {s.mobile} 
             </div>
@@ -509,6 +361,19 @@ setForm({
         </div>
       )}
 
+      </div>
+
+
+{loading && (
+  <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+    <div className="bg-white px-6 py-4 rounded-2xl shadow-xl flex items-center gap-4">
+      <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+      <span className="font-semibold text-gray-700">
+        Saving data...
+      </span>
+    </div>
+  </div>
+)}
       <form onSubmit={handleSubmit} className="bg-white p-3 rounded-2xl shadow space-y-8">
 
         {/* STUDENT DETAILS */}
@@ -549,7 +414,7 @@ setForm({
         {/* DOCUMENTS */}
         <div>
           <h2 className="text-lg font-semibold mb-4">Documents</h2>
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-4 gap-4">
             <Checkbox label="Student Photo" name="photo" checked={form.photo} onChange={handleChange} />
             <Checkbox label="Birth Certificate" name="birthCert" checked={form.birthCert} onChange={handleChange} />
             <Checkbox label="Aadhar Card" name="aadhar" checked={form.aadhar} onChange={handleChange} />
@@ -586,14 +451,19 @@ setForm({
           {/* <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded-xl">
             {selectedStudent ? "Update Admission" : "Save Admission"}
           </button> */}
-          <button type="submit"  className="bg-blue-600 text-white px-6 py-2 rounded-xl"
-          disabled={loading}>
-          {loading
-            ? "Saving..."
-            : selectedStudent
-            ? "Update Admission"
-            : "Save Admission"}
-        </button>
+
+         <button
+            type="submit"
+            disabled={loading}
+            className="bg-blue-600 text-white px-6 py-2 rounded-xl disabled:opacity-50"
+          >
+            {loading
+              ? "Saving..."
+              : selectedStudent
+              ? "Update Admission"
+              : "Save Admission"}
+          </button>
+
         </div>
 
       </form>
