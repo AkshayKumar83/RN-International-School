@@ -376,7 +376,7 @@ ${formData.message}
           {/* Student Name */}
 
           <div>
-            <label className="block text-gray-700 font-semibold mb-2">
+            <label className="block text-gray-700 font-semibold ">
               Student Name *
             </label>
 
@@ -386,7 +386,7 @@ ${formData.message}
               value={formData?.student_name}
               required
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -394,7 +394,7 @@ ${formData.message}
           {/* Parent Name */}
 
           <div>
-            <label className="block text-gray-700 font-semibold mb-2">
+            <label className="block text-gray-700 font-semibold">
               Parent/Guardian Name *
             </label>
 
@@ -404,7 +404,7 @@ ${formData.message}
               value={formData?.parent_name}
               required
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -412,7 +412,7 @@ ${formData.message}
           {/* Email */}
 
           <div>
-            <label className="block text-gray-700 font-semibold mb-2">
+            <label className="block text-gray-700 font-semibold">
               Email Address *
             </label>
 
@@ -422,7 +422,7 @@ ${formData.message}
               value={formData?.email}
               required
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -430,7 +430,7 @@ ${formData.message}
           {/* Phone */}
 
           <div>
-            <label className="block text-gray-700 font-semibold mb-2">
+            <label className="block text-gray-700 font-semibold">
               Phone Number *
             </label>
 
@@ -440,7 +440,7 @@ ${formData.message}
               value={formData?.phone}
               required
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -448,7 +448,7 @@ ${formData.message}
           {/* Grade */}
 
           <div>
-            <label className="block text-gray-700 font-semibold mb-2">
+            <label className="block text-gray-700 font-semibold">
               Grade Applying For *
             </label>
 
@@ -457,7 +457,7 @@ ${formData.message}
               value={formData?.grade}
               required
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
 
               <option value="">Select Grade</option>
@@ -484,7 +484,7 @@ ${formData.message}
           {/* Previous School */}
 
           <div>
-            <label className="block text-gray-700 font-semibold mb-2">
+            <label className="block text-gray-700 font-semibold">
               Previous School (if any)
             </label>
 
@@ -493,7 +493,7 @@ ${formData.message}
               name="previous_school"
               value={formData?.previous_school}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -504,7 +504,7 @@ ${formData.message}
 
         <div className="mt-6">
 
-          <label className="block text-gray-700 font-semibold mb-2">
+          <label className="block text-gray-700 font-semibold">
             Additional Message
           </label>
 
